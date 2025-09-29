@@ -1,57 +1,90 @@
 ---
   title: E-commerce Store
   summary: A full-stack e-commerce store built with NextJs and Stripe.
-  image: /images/projects/ecommerce-store.jpg
+  image: /images/projects/e-commerce-app.jpg
   author: 'Hicham Garoum'
-  publishedAt: '2025-08-24'
+  publishedAt: '2025-08-25'
 ---
 
-This is a full-stack e-commerce store built with NextJs and Stripe. It uses the
-`@stripe/stripe-js` package to handle payments and the `@next/bundle-analyzer`
-package to analyze the bundle size.
+This is a full-stack e-commerce store built with NextJs and Zod. It uses zustand for state management, React Hook Form for form handling, and React-Toastify for notifications. The backend is powered by Next.js API routes and Stripe for payment processing.
 
-## Features
 
-- **Stripe Payments**: Accept payments using the Stripe API.
-- **Product Catalog**: Display products in a grid layout.
-- **Shopping Cart**: Add products to the shopping cart and checkout.
-- **User Authentication**: Allow users to sign up and log in.
-- **Order History**: View order history and track shipments.
+# New libraries used in this project:
 
-## Technologies
+#### - React Hook Form:
 
-- **NextJs**: A React framework for building static and dynamic websites.
-- **Stripe**: A payment processing platform for online businesses.
-- **Tailwind CSS**: A utility-first CSS framework for building custom designs.
-- **Vercel**: A cloud platform for static sites and serverless functions.
+Performance is one of the primary reasons why this library was created. React Hook Form relies on an uncontrolled form, which is the reason why the `register` function captures `ref` and the controlled component has its re-rendering scope with `Controller` or `useController`. This approach reduces the amount of re-rendering that occurs due to a user typing in an input or other form values changing at the root of your form or applications. Components mount to the page faster than controlled components because they have less overhead. As a reference, there is a quick comparison test that you can refer to at [this repo link](https://github.com/bluebill1049/react-hook-form-performance-compare).
 
-## Getting Started
+installation: pnpm add react-hook-form @hookform/resolvers
 
-To get started with this project, you can clone the repository and install the
-dependencies:
+## - Zod :
 
-```bash
-git clone
-cd ecommerce-store
-npm install
+Zod is a TypeScript-first validation library. Using Zod, you can define *schemas* you can use to validate data, from a simple `string` to a complex nested object.
+
+installation : pnpm add zod
+
+## - Zustand:
+
+A small, fast, and scalable bearbones state management solution. Zustand has a comfy API based on hooks. It isn't boilerplatey or opinionated, but has enough convention to be explicit and flux-like.
+
+Don't disregard it because it's cute, it has claws! Lots of time was spent to deal with common pitfalls, like the dreaded [zombie child problem](https://react-redux.js.org/api/hooks#stale-props-and-zombie-children), [React concurrency](https://github.com/bvaughn/rfcs/blob/useMutableSource/text/0000-use-mutable-source.md), and [context loss](https://github.com/facebook/react/issues/13332) between mixed renderers. It may be the one state manager in the React space that gets all of these right.
+
+installation : pnpm add zustand
+
+## -React toastofy :
+
+React-Toastify is a popular, free, and MIT-licensed package used to add toast notifications to React applications. Toast notifications are small, temporary pop-up messages that provide feedback to users about actions or events, such as success messages, error alerts, or loading indicators.** **
+
+Key Features and Usage:
+
+* **Installation:** React-Toastify can be installed using npm or yarn:
+
+Code
+
+```
+    npm install react-toastify
+# or
+    yarn add react-toastify
 ```
 
-Once the dependencies are installed, you can run the development server:
+* **Basic Setup:** After installation, import the `ToastContainer` component and the `toast` object, along with the required CSS file, into your main application component (e.g., `App.js`):
 
-```bash
-npm run dev
+Code
+
+```
+    import { ToastContainer, toast } from 'react-toastify';
+    import 'react-toastify/dist/ReactToastify.css';
+
+    function App() {
+      const notify = () => toast("Hello World!");
+
+      return (
+        <div>
+          <button onClick={notify}>Show Toast</button>
+          <ToastContainer />
+        </div>
+      );
+    }
 ```
 
-The development server will start at `http://localhost:3000`.
+The `ToastContainer` component renders the actual toast notifications, and the `toast` object is used to trigger them.
 
-## Deployment
+* **Types of Toasts:** React-Toastify supports various types of toasts, such as `success`, `error`, `warning`, `info`, and `loading`, each with its own distinct styling.
 
-To deploy this project, you can use Vercel. You can link your GitHub repository
-to Vercel and deploy the project with a single click.
+JavaScript
 
-## Conclusion
+```
+    toast.success("Action successful!");
+    toast.error("Something went wrong.");
+```
 
-This ecommerce store is a great example of how you can build a full-stack
-application with NextJs and Stripe. By integrating the Stripe API with NextJs,
-you can create a seamless shopping experience for your customers and manage
-payments securely and efficiently.
+* **Customization:**
+
+  The library offers extensive customization options for styling, positioning, and behavior of toasts. You can configure global options on the `ToastContainer` or pass options directly to individual `toast` calls.
+* **Advanced Features:**
+
+  React-Toastify also includes advanced features like limiting the number of displayed toasts, dark mode support, colored themes, and integration with Promises for displaying loading and success/error states for asynchronous operations. It also provides hooks like `onOpen` and `onClose` for custom logic when toasts appear or disappear.
+
+## -Zustand/middleware:
+
+**The Persist middleware enables you to store your Zustand state in a storage** (e.g., localStorage , AsyncStorage , IndexedDB , etc.), thus persisting its data.
